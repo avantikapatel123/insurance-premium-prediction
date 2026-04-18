@@ -8,16 +8,6 @@ from fpdf import FPDF
 model = pickle.load(open("models/model.pkl", "rb"))
 scaler = pickle.load(open("models/scaler.pkl", "rb"))
 
-# ---------------- THEME ----------------
-theme = st.radio("Choose Theme", ["🌙 Dark", "☀️ Light"])
-
-if theme == "☀️ Light":
-    st.markdown("""
-    <style>
-    body { background: white; color: black; }
-    </style>
-    """, unsafe_allow_html=True)
-
 # ---------------- UI STYLE ----------------
 st.markdown("""
 <style>
@@ -40,6 +30,7 @@ h1 {
     color: #ffffff;
     font-size: 2.4rem;
     font-weight: 700;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.5);
 }
 
 .stButton>button {
@@ -102,25 +93,20 @@ if st.button("Predict 🚀"):
     else:
         risk = "🔴 High Risk"
 
-    st.success(f"💰 Estimated Premium: ₹{prediction:,.2f}")
+    st.success(f"💰 Estimated Premium: INR {prediction:,.2f}")
     st.info(f"Risk Category: {risk}")
 
-    # ---------------- SAVE FOR PDF ----------------
-    result_data = {
-        "Age": age,
-        "BMI": bmi,
-        "Premium": prediction,
-        "Risk": risk
-    }
-
-    # ---------------- PDF DOWNLOAD ----------------
+    # ---------------- PDF REPORT ----------------
     pdf = FPDF()
     pdf.add_page()
+    pdf.set_font("Arial", "B", 14)
+    pdf.cell(200, 10, txt="INSURANCE PREMIUM REPORT", ln=True)
+    pdf.ln(5)
+
     pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt="Insurance Premium Report", ln=True)
     pdf.cell(200, 10, txt=f"Age: {age}", ln=True)
     pdf.cell(200, 10, txt=f"BMI: {bmi}", ln=True)
-    pdf.cell(200, 10, txt=f"Premium: ₹{prediction:,.2f}", ln=True)
+    pdf.cell(200, 10, txt=f"Premium: INR {prediction:,.2f}", ln=True)
     pdf.cell(200, 10, txt=f"Risk: {risk}", ln=True)
 
     pdf.output("report.pdf")
@@ -132,7 +118,7 @@ if st.button("Predict 🚀"):
 if st.button("Show Age vs Premium Graph 📊"):
 
     ages = np.arange(18, 100, 5)
-    premiums = ages * 250  # demo trend
+    premiums = ages * 250
 
     fig, ax = plt.subplots()
     ax.plot(ages, premiums, marker='o')
