@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Python App
 
 on:
   push:
@@ -11,15 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          node-version: 18
+          python-version: "3.10"
 
-      - run: npm install
-      - run: npm run build
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+      - name: Run app (test only)
+        run: |
+          python app.py
