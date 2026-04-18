@@ -1,8 +1,6 @@
 import streamlit as st
 import numpy as np
 import pickle
-import matplotlib.pyplot as plt
-from fpdf import FPDF
 
 # ---------------- MODEL LOAD ----------------
 model = pickle.load(open("models/model.pkl", "rb"))
@@ -12,10 +10,12 @@ scaler = pickle.load(open("models/scaler.pkl", "rb"))
 st.markdown("""
 <style>
 
+/* 🌌 Background */
 body {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
+/* 🧊 Main container */
 .block-container {
     padding: 2rem;
     border-radius: 20px;
@@ -25,6 +25,7 @@ body {
     box-shadow: 0px 8px 30px rgba(0,0,0,0.4);
 }
 
+/* 🏷️ Title */
 h1 {
     text-align: center;
     color: #ffffff;
@@ -33,25 +34,52 @@ h1 {
     text-shadow: 0px 2px 10px rgba(0,0,0,0.5);
 }
 
+/* 🎛️ Inputs */
+.stSlider, .stSelectbox {
+    border-radius: 12px !important;
+}
+
+/* 📦 Input shadow */
+div[data-baseweb="input"] {
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+/* 🔘 BUTTON */
 .stButton>button {
     background: linear-gradient(90deg, #ff416c, #ff4b2b);
     color: white !important;
     border-radius: 14px;
     padding: 12px 24px;
-    border: none;
+    border: 2px solid rgba(255,255,255,0.2);
     font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    cursor: pointer !important;
+    transition: 0.3s ease-in-out;
     box-shadow: 0px 5px 20px rgba(255, 65, 108, 0.4);
 }
 
+/* 🔥 Hover */
 .stButton>button:hover {
     transform: scale(1.08);
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
     box-shadow: 0px 8px 25px rgba(255, 105, 180, 0.6);
 }
 
+/* 📊 Output box */
 .stAlert {
     border-radius: 14px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+}
+
+/* ✨ Labels */
+label {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+/* 🖱️ Cursor */
+button, select, input {
+    cursor: pointer;
 }
 
 </style>
@@ -59,10 +87,7 @@ h1 {
 
 # ---------------- TITLE ----------------
 st.title("🏥 Insurance Premium Prediction 💰")
-st.subheader("AI predicts your insurance cost instantly ⚡")
-
-# ---------------- MODEL INFO ----------------
-st.metric("Model Accuracy (R²)", "0.89")
+st.subheader("Predict your insurance cost instantly ⚡")
 
 # ---------------- INPUTS ----------------
 age = st.slider("Age", 18, 100)
@@ -79,38 +104,22 @@ region = ["northeast", "northwest", "southeast", "southwest"].index(region)
 
 # ---------------- PREDICT ----------------
 if st.button("Predict 🚀"):
-
     input_data = np.array([[age, sex, bmi, children, smoker, region]])
     input_data = scaler.transform(input_data)
 
-    prediction = model.predict(input_data)[0]
+    prediction = model.predict(input_data)
+    premium = prediction[0]
 
-    # ---------------- RISK CATEGORY ----------------
-    if prediction < 10000:
+    # 🔥 Risk Category Logic
+    if premium < 10000:
         risk = "🟢 Low Risk"
-    elif prediction < 20000:
-        risk = "🟠 Medium Risk"
+    elif premium < 30000:
+        risk = "🟡 Medium Risk"
     else:
         risk = "🔴 High Risk"
 
-    st.success(f"💰 Estimated Premium: INR {prediction:,.2f}")
-    st.info(f"Risk Category: {risk}")
+    st.success(f"💰 Estimated Premium: ₹{premium:,.2f}")
+    st.info(f"📊 Risk Category: {risk}")
 
-  
-
-# ---------------- GRAPH ----------------
-if st.button("Show Age vs Premium Graph 📊"):
-
-    ages = np.arange(18, 100, 5)
-    premiums = ages * 250
-
-    fig, ax = plt.subplots()
-    ax.plot(ages, premiums, marker='o')
-    ax.set_title("Age vs Insurance Premium")
-    ax.set_xlabel("Age")
-    ax.set_ylabel("Premium")
-
-    st.pyplot(fig)
-
-# ---------------- FOOTER ----------------
+# footer
 st.caption("Built with ❤️ using Streamlit + Machine Learning")
