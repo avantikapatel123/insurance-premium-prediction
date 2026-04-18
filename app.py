@@ -96,23 +96,7 @@ if st.button("Predict 🚀"):
     st.success(f"💰 Estimated Premium: INR {prediction:,.2f}")
     st.info(f"Risk Category: {risk}")
 
-    # ---------------- PDF REPORT ----------------
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", "B", 14)
-    pdf.cell(200, 10, txt="INSURANCE PREMIUM REPORT", ln=True)
-    pdf.ln(5)
-
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt=f"Age: {age}", ln=True)
-    pdf.cell(200, 10, txt=f"BMI: {bmi}", ln=True)
-    pdf.cell(200, 10, txt=f"Premium: INR {prediction:,.2f}", ln=True)
-    pdf.cell(200, 10, txt=f"Risk: {risk}", ln=True)
-
-    pdf.output("report.pdf")
-
-    with open("report.pdf", "rb") as f:
-        st.download_button("📄 Download Report", f, file_name="insurance_report.pdf")
+  
 
 # ---------------- GRAPH ----------------
 if st.button("Show Age vs Premium Graph 📊"):
