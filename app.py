@@ -15,9 +15,11 @@ body {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
-/* 🧊 Main container */
+/* 🧊 Main container (COMPACT VERSION) */
 .block-container {
-    padding: 2rem;
+    padding: 1rem 1.2rem;
+    max-width: 750px;
+    margin: auto;
     border-radius: 20px;
     background: rgba(255,255,255,0.08);
     backdrop-filter: blur(14px);
@@ -29,8 +31,9 @@ body {
 h1 {
     text-align: center;
     color: #ffffff;
-    font-size: 2.4rem;
+    font-size: 2rem;
     font-weight: 700;
+    margin-bottom: 0.5rem;
     text-shadow: 0px 2px 10px rgba(0,0,0,0.5);
 }
 
@@ -50,7 +53,7 @@ div[data-baseweb="input"] {
     background: linear-gradient(90deg, #ff416c, #ff4b2b);
     color: white !important;
     border-radius: 14px;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border: 2px solid rgba(255,255,255,0.2);
     font-weight: bold;
     cursor: pointer !important;
@@ -60,7 +63,7 @@ div[data-baseweb="input"] {
 
 /* 🔥 Hover */
 .stButton>button:hover {
-    transform: scale(1.08);
+    transform: scale(1.05);
     background: linear-gradient(90deg, #ff6a00, #ee0979);
     box-shadow: 0px 8px 25px rgba(255, 105, 180, 0.6);
 }
