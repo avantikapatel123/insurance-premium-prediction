@@ -20,41 +20,66 @@ body {
     padding: 2rem;
     border-radius: 20px;
     background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0px 8px 30px rgba(0,0,0,0.4);
 }
 
 /* 🏷️ Title */
 h1 {
     text-align: center;
     color: #ffffff;
-    font-size: 2.2rem;
-    font-weight: bold;
+    font-size: 2.4rem;
+    font-weight: 700;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.5);
 }
 
-/* 🎛️ Inputs */
+/* 🎛️ Inputs (sliders + dropdowns) */
 .stSlider, .stSelectbox {
+    border-radius: 12px !important;
+}
+
+/* 📦 Input box shadow */
+div[data-baseweb="input"] {
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
     border-radius: 10px;
 }
 
-/* 🔘 Button */
+/* 🔘 BUTTON (MAIN UPGRADE) */
 .stButton>button {
-    background: linear-gradient(90deg, #ff4b2b, #ff416c);
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
     color: white !important;
-    border-radius: 12px;
-    padding: 10px 20px;
-    border: none;
+    border-radius: 14px;
+    padding: 12px 24px;
+    border: 2px solid rgba(255,255,255,0.2);
     font-weight: bold;
-    transition: 0.3s;
+    cursor: pointer !important;   /* 👈 pointer cursor */
+    transition: 0.3s ease-in-out;
+    box-shadow: 0px 5px 20px rgba(255, 65, 108, 0.4);
 }
 
+/* 🔥 Hover effect */
 .stButton>button:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 4px 15px rgba(255, 65, 108, 0.4);
+    transform: scale(1.08);
+    background: linear-gradient(90deg, #ff6a00, #ee0979);
+    box-shadow: 0px 8px 25px rgba(255, 105, 180, 0.6);
 }
 
-/* 📦 Success box */
+/* 📊 Success box */
 .stAlert {
-    border-radius: 12px;
+    border-radius: 14px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+}
+
+/* ✨ Labels */
+label {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+/* 🖱️ Cursor for whole app */
+button, select, input {
+    cursor: pointer;
 }
 
 </style>
